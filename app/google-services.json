@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "174556287511",
+    "project_id": "okosotthonfigyelo",
+    "storage_bucket": "okosotthonfigyelo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174556287511:android:bdb48e1ea09b3be112c252",
+        "android_client_info": {
+          "package_name": "com.example.okosotthonfigyelo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174556287511-955se4kp9g2edu1tee10or23fkrtftin.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.okosotthonfigyelo",
+            "certificate_hash": "b57babd9bdba172216a6ce6169b363221b71397a"
+          }
+        },
+        {
+          "client_id": "174556287511-e0bck3sjhrrkcm8s9voqads2b8mgiv0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSlQITcZnTmGsdZ8mtQIzCjnwd4DwU-gY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174556287511-e0bck3sjhrrkcm8s9voqads2b8mgiv0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
