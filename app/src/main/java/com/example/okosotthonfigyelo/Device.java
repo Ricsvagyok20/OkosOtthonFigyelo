@@ -2,30 +2,37 @@ package com.example.okosotthonfigyelo;
 
 public class Device {
     private String name;
-    private String type;
-    private boolean onOrNot;
-    private String description;
+    private String manufacturer;
 
-    public Device(String name, String type, boolean onOrNot, String description) {
+    private String description;
+    private boolean active;
+    private final int imageResource;
+
+    public Device(String name, String manufacturer, String description, boolean active, int imageResource) {
         this.name = name;
-        this.type = type;
-        this.onOrNot = onOrNot;
+        this.manufacturer = manufacturer;
         this.description = description;
+        this.active = active;
+        this.imageResource = imageResource;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getType() {
-        return type;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public boolean isOnOrNot() {
-        return onOrNot;
+    public boolean isActive() {
+        return active;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public int getImageResource() {
+        return imageResource;
     }
 }

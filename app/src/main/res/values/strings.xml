@@ -18,4 +18,66 @@
     <string name="already_account">If you already have an account log in</string>
     <string name="login">Login</string>
     <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="modify">Modify</string>
+    <string name="device_name">Device name</string>
+    <string name="some_description">Some description</string>
+    <string name="manufacturer">Manufacturer</string>
+
+    <string-array name="device_names">
+        <item>Dog Cam</item>
+        <item>Doorbell</item>
+        <item>Fridge</item>
+        <item>Google Assistant</item>
+        <item>Lawn mover</item>
+        <item>Light bulb</item>
+        <item>Thermostat</item>
+        <item>Vacuum</item>
+        <item>Outdoor Camera</item>
+    </string-array>
+
+    <string-array name="device_manufacturers">
+        <item>Xiaomi</item>
+        <item>Eufy</item>
+        <item>Samsung</item>
+        <item>Google</item>
+        <item>Jiudu</item>
+        <item>Vont</item>
+        <item>Heltun</item>
+        <item>iRobot</item>
+        <item>LifeSmart</item>
+    </string-array>
+
+    <string-array name="device_descriptions">
+        <item>A smart dog cam is a device that lets you monitor and interact with your pet remotely,
+            using your phone. Some models can also dispense treats, play music, or pan around the room for a better view.</item>
+        <item>A smart doorbell is a device that alerts you when someone rings it, and lets you see
+            and talk to the visitor using your phone. Some models can also record video, detect motion, or work with other smart devices.</item>
+        <item>A smart fridge is a device that connects to the internet and offers various features,
+            such as displaying recipes, ordering groceries, playing music, or showing what’s inside without opening the door3.</item>
+        <item>A smart assistant is a device that uses artificial intelligence to answer your questions,
+            control other smart devices, play music, set reminders, or perform other tasks using voice commands.</item>
+        <item>A smart lawn mower is a device that can cut your grass automatically, using sensors and GPS
+            to navigate your yard. Some models can also be controlled by your phone, adjust to weather conditions, or return to their charging station when needed.</item>
+        <item>A smart light bulb is a device that can change its brightness, color, or schedule using your
+            phone or voice commands. Some models can also sync with music, create scenes, or work with other smart devices.</item>
+        <item>A smart thermostat is a device that can adjust the temperature of your home automatically, using sensors and algorithms to learn your preferences.
+            Some models can also be controlled by your phone or voice commands, save energy, or work with other smart devices.</item>
+        <item>A smart vacuum is a device that can clean your floors automatically, using sensors and cameras to avoid obstacles and map your home.
+            Some models can also be controlled by your phone or voice commands, empty their own dustbin, or work with other smart devices.</item>
+        <item>A smart outdoor camera is a device that can capture high-quality photos and videos, and also perform various functions using artificial intelligence.
+            Some examples of smart camera features are motion detection, face recognition, night vision, timestamp, filters, and voice control.</item>
+    </string-array>
+
+    <array name="device_images">
+        <item>@drawable/dog_cam</item>
+        <item>@drawable/doorbell</item>
+        <item>@drawable/fridge</item>
+        <item>@drawable/google_assistant</item>
+        <item>@drawable/lawn_mover</item>
+        <item>@drawable/light_bulb</item>
+        <item>@drawable/thermostat</item>
+        <item>@drawable/vacuum</item>
+        <item>@drawable/outdoor_camera</item>
+    </array>
 </resources>
