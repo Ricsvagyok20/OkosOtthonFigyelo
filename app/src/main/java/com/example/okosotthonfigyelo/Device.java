@@ -35,4 +35,8 @@ public class Device {
     public int getImageResource() {
         return imageResource;
     }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mAuth = FirebaseAuth.getInstance();
         userNameEditText = findViewById(R.id.userName);
         emailEditText = findViewById(R.id.email);
         phoneNumberEditText = findViewById(R.id.phoneNumber);
@@ -55,16 +54,14 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    startDeviceList();
-                    Log.i(LOG_TAG, "User was created successfully!");
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Couldn't create user!", Toast.LENGTH_LONG).show();
-                }
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+            if(task.isSuccessful()){
+                startDeviceList();
+                Log.i(LOG_TAG, "User was created successfully!");
+            }
+            else{
+                task.getException().printStackTrace();
+                Toast.makeText(MainActivity.this, "Couldn't create user!", Toast.LENGTH_LONG).show();
             }
         });
     }

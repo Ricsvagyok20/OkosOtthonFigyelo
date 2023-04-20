@@ -23,6 +23,7 @@
     <string name="device_name">Device name</string>
     <string name="some_description">Some description</string>
     <string name="manufacturer">Manufacturer</string>
+    <string name="turn_on">Turn this device on</string>
 
     <string-array name="device_names">
         <item>Dog Cam</item>

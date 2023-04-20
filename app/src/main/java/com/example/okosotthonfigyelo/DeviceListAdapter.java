@@ -1,6 +1,5 @@
 package com.example.okosotthonfigyelo;
 
-import android.companion.DeviceFilter;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,8 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -102,29 +99,24 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
         private TextView deviceManufacturer;
         private TextView description;
         private ImageView active;
+        private boolean isActive = false;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ImageView deviceImage = itemView.findViewById(R.id.deviceImage);
-            TextView deviceName = itemView.findViewById(R.id.deviceName);
-            TextView deviceManufacturer = itemView.findViewById(R.id.deviceManufacturer);
-            TextView description = itemView.findViewById(R.id.description);
-            ImageView active = itemView.findViewById(R.id.active);
+            this.deviceImage = itemView.findViewById(R.id.deviceImage);
+            this.deviceName = itemView.findViewById(R.id.deviceName);
+            this.deviceManufacturer = itemView.findViewById(R.id.deviceManufacturer);
+            this.description = itemView.findViewById(R.id.description);
+            this.active = itemView.findViewById(R.id.active);
 
-            itemView.findViewById(R.id.modify).setOnClickListener(new View.OnClickListener(){
+            itemView.findViewById(R.id.modify).setOnClickListener(view -> Log.d("modify", "Modify button has been clicked!"));
 
-                @Override
-                public void onClick(View view) {
-                    Log.d("modify", "Modify button has been clicked!");
-                }
-            });
-            itemView.findViewById(R.id.delete).setOnClickListener(new View.OnClickListener(){
+            itemView.findViewById(R.id.delete).setOnClickListener(view -> Log.d("delete", "Delete button has been clicked!"));
 
-                @Override
-                public void onClick(View view) {
-                    Log.d("delete", "Delete button has been clicked!");
-                }
+            itemView.findViewById(R.id.setActive).setOnClickListener(view -> {
+                Log.d("setActive", "Turn on button has been clicked!");
+                isActive = !isActive;
             });
         }
 
@@ -133,8 +125,12 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
             description.setText(currentDevice.getDescription());
             deviceManufacturer.setText(currentDevice.getManufacturer());
             Glide.with(context).load(currentDevice.getImageResource()).into(deviceImage);
+            currentDevice.setActive(isActive);
             if(currentDevice.isActive()){
-                Glide.with(context).load(R.drawable.circle).into(active);
+                Glide.with(context).load(R.drawable.green_circle).into(active);
+            }
+            else{
+                Glide.with(context).load(R.drawable.red_circle).into(active);
             }
         }
     }
