@@ -62,15 +62,14 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
             ArrayList<Device> filteredDevices = new ArrayList<>();
             FilterResults results = new FilterResults();
 
-            if(charSequence == null || charSequence.length() == 0){
+            if (charSequence == null || charSequence.length() == 0) {
                 results.count = deviceArrayListAll.size();
                 results.values = deviceArrayListAll;
-            }
-            else{
+            } else {
                 String filter = charSequence.toString().toLowerCase().trim();
 
-                for (Device tmp: deviceArrayListAll){
-                    if(tmp.getName().toLowerCase().contains(filter)){
+                for (Device tmp : deviceArrayListAll) {
+                    if (tmp.getName().toLowerCase().contains(filter)) {
                         filteredDevices.add(tmp);
                     }
                 }
@@ -91,6 +90,32 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
     @Override
     public Filter getFilter() {
         return deviceFilter;
+    }
+
+    private Filter filterByActive = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<Device> filteredDevices = new ArrayList<>();
+            Filter.FilterResults results = new Filter.FilterResults();
+            for (Device tmp: deviceArrayListAll){
+                if(tmp.isActive()){
+                    filteredDevices.add(tmp);
+                }
+            }
+            results.count = filteredDevices.size();
+            results.values = filteredDevices;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            deviceArrayList = (ArrayList) filterResults.values;
+            notifyDataSetChanged();
+        }
+    };
+
+    public Filter getFilterByActive() {
+        return filterByActive;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -114,9 +139,10 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
 
             itemView.findViewById(R.id.delete).setOnClickListener(view -> Log.d("delete", "Delete button has been clicked!"));
 
-            itemView.findViewById(R.id.setActive).setOnClickListener(view -> {
-                Log.d("setActive", "Turn on button has been clicked!");
+            itemView.findViewById(R.id.active).setOnClickListener(view -> {
+                //Log.d("setActive", "Turn on button has been clicked!");
                 isActive = !isActive;
+                notifyDataSetChanged();
             });
         }
 

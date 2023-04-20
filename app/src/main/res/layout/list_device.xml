@@ -42,24 +42,17 @@
 
         <ImageView
             android:id="@+id/active"
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/description"
             android:adjustViewBounds="true"
             />
 
-        <Button
-            android:id="@+id/setActive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/active"
-            android:text="@string/turn_on"
-            />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/setActive"
+            android:layout_below="@id/active"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
