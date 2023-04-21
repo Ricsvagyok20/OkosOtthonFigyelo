@@ -92,32 +92,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
         return deviceFilter;
     }
 
-    private Filter filterByActive = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            ArrayList<Device> filteredDevices = new ArrayList<>();
-            Filter.FilterResults results = new Filter.FilterResults();
-            for (Device tmp: deviceArrayListAll){
-                if(tmp.isActive()){
-                    filteredDevices.add(tmp);
-                }
-            }
-            results.count = filteredDevices.size();
-            results.values = filteredDevices;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            deviceArrayList = (ArrayList) filterResults.values;
-            notifyDataSetChanged();
-        }
-    };
-
-    public Filter getFilterByActive() {
-        return filterByActive;
-    }
-
     class ViewHolder extends RecyclerView.ViewHolder{
         private ImageView deviceImage;
         private TextView deviceName;
@@ -142,7 +116,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
             itemView.findViewById(R.id.active).setOnClickListener(view -> {
                 //Log.d("setActive", "Turn on button has been clicked!");
                 isActive = !isActive;
-                notifyDataSetChanged();
             });
         }
 

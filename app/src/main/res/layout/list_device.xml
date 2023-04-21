@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="15dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/deviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/deviceImage"
+            android:text="@string/device_name"
+            android:textSize="25sp"
+            />
 
         <ImageView
             android:id="@+id/deviceImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            />
-
-        <TextView
-            android:id="@+id/deviceName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/deviceImage"
-            android:text="@string/device_name"
+            app:layout_constraintTop_toBottomOf="@id/deviceName"
+            app:layout_constraintBottom_toTopOf="@+id/deviceManufacturer"
             />
 
         <TextView
             android:id="@+id/deviceManufacturer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/deviceName"
+            app:layout_constraintTop_toBottomOf="@id/deviceImage"
+            app:layout_constraintBottom_toTopOf="@+id/description"
             android:text="@string/manufacturer"
             />
 
@@ -36,40 +42,48 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/deviceManufacturer"
+            app:layout_constraintTop_toBottomOf="@id/deviceManufacturer"
+            app:layout_constraintBottom_toTopOf="@+id/active"
             android:text="@string/some_description"
+            />
+
+        <TextView
+            android:id="@+id/onOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintBottom_toTopOf="@+id/modify"
+            android:text="@string/on_off"
             />
 
         <ImageView
             android:id="@+id/active"
-            android:layout_width="20dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/description"
             android:adjustViewBounds="true"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/modify"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/onOff"
+            app:layout_constraintTop_toBottomOf="@id/description" />
 
-
-        <LinearLayout
+        <Button
+            android:id="@+id/modify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/active"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
+            android:text="@string/modify"
+            app:layout_constraintBottom_toTopOf="@+id/delete"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/onOff" />
 
-            <Button
-                android:id="@+id/modify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/modify"
-                />
-
-            <Button
-                android:id="@+id/delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete"
-                android:layout_marginStart="20dp"
-                />
-        </LinearLayout>
-    </RelativeLayout>
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/modify" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

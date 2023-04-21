@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class DeviceListActivity extends AppCompatActivity {
+public class DeviceListActivity extends AppCompatActivity{
 
     private static final String LOG_TAG = DeviceListActivity.class.getName();
 
@@ -40,6 +42,8 @@ public class DeviceListActivity extends AppCompatActivity {
     private ArrayList<Device> deviceList;
     private DeviceListAdapter adapter;
     private int gridNumber = 2;
+
+    private boolean filteredByActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +85,6 @@ public class DeviceListActivity extends AppCompatActivity {
                 initializeData();
                 queryData();
             }
-
-            // Notify the adapter of the change.
             adapter.notifyDataSetChanged();
         });
     }
@@ -136,8 +138,8 @@ public class DeviceListActivity extends AppCompatActivity {
                 return true;
             case R.id.sort_by_active:
                 Log.d(LOG_TAG, "Sort by active clicked!");
-                //TODO Ezt majd Firebase lekerdezeskent kene megvalositani
-                adapter.getFilterByActive().filter("");
+                sortByActive();
+                filteredByActive = !filteredByActive;
                 return true;
             case R.id.log_out_button:
                 Log.d(LOG_TAG, "Log out clicked!");
@@ -149,6 +151,22 @@ public class DeviceListActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sortByActive(){
+        deviceList.clear();
+        if(!filteredByActive){
+            items.whereEqualTo("active", true).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    Device device = document.toObject(Device.class);
+                    deviceList.add(device);
+                }
+                adapter.notifyDataSetChanged();
+            });
+        }
+        else{
+            queryData();
         }
     }
 
@@ -168,5 +186,4 @@ public class DeviceListActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
-
 }
