@@ -6,7 +6,7 @@ public class Device {
 
     private String description;
     private boolean active;
-    private final int imageResource;
+    private int imageResource;
 
     public Device(String name, String manufacturer, String description, boolean active, int imageResource) {
         this.name = name;
@@ -14,6 +14,10 @@ public class Device {
         this.description = description;
         this.active = active;
         this.imageResource = imageResource;
+    }
+
+    public Device() {
+
     }
 
     public String getName() {

@@ -5,7 +5,7 @@
         android:id="@+id/search_bar"
         android:title="Search"
         android:icon="@drawable/search"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView"
     />
 
@@ -13,7 +13,7 @@
         android:id="@+id/view_selector"
         android:title="View"
         android:icon="@drawable/default_view"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView"
         />
 
@@ -21,7 +21,7 @@
         android:id="@+id/sort_by_active"
         android:title="Sort by active"
         android:icon="@drawable/sort"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         app:actionViewClass="android.widget.SearchView"
         />
 
