@@ -51,7 +51,7 @@ public class DeviceListActivity extends AppCompatActivity{
     @Override
     protected void onStop() {
         super.onStop();
-        notificationHandler.send("The app is running in the background!");
+        notificationHandler.send("Your active devices are still running in the background!");
     }
 
     @Override

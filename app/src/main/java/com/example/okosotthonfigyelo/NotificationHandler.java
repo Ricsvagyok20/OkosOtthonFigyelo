@@ -37,7 +37,7 @@ public class NotificationHandler {
 
     public void send(String message){
         Intent intent = new Intent(context, DeviceListActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle("Smart Home Watcher")
