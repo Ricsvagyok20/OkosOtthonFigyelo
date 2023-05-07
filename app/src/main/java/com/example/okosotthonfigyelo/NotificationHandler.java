@@ -2,7 +2,9 @@ package com.example.okosotthonfigyelo;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
@@ -34,10 +36,18 @@ public class NotificationHandler {
     }
 
     public void send(String message){
+        Intent intent = new Intent(context, DeviceListActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setContentTitle("Smart Home Watcher")
                 .setContentText(message)
-                .setSmallIcon(R.drawable.ic_notification_icon);
+                .setSmallIcon(R.drawable.ic_notification_icon)
+                .setContentIntent(pendingIntent);
         this.manager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    public void cancel() {
+        manager.cancel(NOTIFICATION_ID);
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,11 +56,21 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startDeviceList() {
         Intent intent = new Intent(this, DeviceListActivity.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        } else {
+            startActivity(intent);
+        }
     }
 
     private void startMain() {
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        } else {
+            startActivity(intent);
+        }
     }
 }

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -72,11 +73,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void startDeviceList() {
         Intent intent = new Intent(this, DeviceListActivity.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        } else {
+            startActivity(intent);
+        }
     }
 
     private void startLogin(){
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        } else {
+            startActivity(intent);
+        }
     }
 }

@@ -113,6 +113,7 @@ public class DeviceListActivity extends AppCompatActivity{
                     Toast.makeText(this, "Device " + device._getId() + " cannot be deleted.", Toast.LENGTH_LONG).show();
                 });
         queryData();
+        notificationHandler.cancel();
     }
 
     public void updateActivity(Device device){
@@ -195,7 +196,12 @@ public class DeviceListActivity extends AppCompatActivity{
 
     private void startMain(){
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        } else {
+            startActivity(intent);
+        }
     }
 
     private void startAddDevice() {
