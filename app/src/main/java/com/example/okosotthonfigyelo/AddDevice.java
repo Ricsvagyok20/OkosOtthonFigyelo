@@ -1,6 +1,7 @@
 package com.example.okosotthonfigyelo;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -57,6 +58,17 @@ public class AddDevice extends AppCompatActivity {
 
     private void startDeviceList() {
         Intent intent = new Intent(this, DeviceListActivity.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        } else {
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.enter, R.anim.exit);
     }
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -182,7 +183,7 @@ public class DeviceListActivity extends AppCompatActivity{
             case R.id.log_out_button:
                 Log.d(LOG_TAG, "Log out clicked!");
                 FirebaseAuth.getInstance().signOut();
-                finish();
+                startMain();
                 return true;
             case R.id.settings_button:
                 Log.d(LOG_TAG, "Settings clicked!");
@@ -192,9 +193,19 @@ public class DeviceListActivity extends AppCompatActivity{
         }
     }
 
+    private void startMain(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     private void startAddDevice() {
         Intent intent = new Intent(this, AddDevice.class);
-        startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            startActivity(intent);
+            overridePendingTransition(R.anim.enter, R.anim.exit);
+        } else {
+            startActivity(intent);
+        }
     }
 
     private void sortByActive(){
