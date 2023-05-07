@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -97,8 +98,8 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
         private TextView deviceName;
         private TextView deviceManufacturer;
         private TextView description;
-        private ImageView active;
-        private boolean isActive = false;
+
+        private Button active;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,29 +109,25 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.Vi
             this.deviceManufacturer = itemView.findViewById(R.id.deviceManufacturer);
             this.description = itemView.findViewById(R.id.description);
             this.active = itemView.findViewById(R.id.active);
-
-            itemView.findViewById(R.id.modify).setOnClickListener(view -> Log.d("modify", "Modify button has been clicked!"));
-
-            itemView.findViewById(R.id.delete).setOnClickListener(view -> Log.d("delete", "Delete button has been clicked!"));
-
-            itemView.findViewById(R.id.active).setOnClickListener(view -> {
-                //Log.d("setActive", "Turn on button has been clicked!");
-                isActive = !isActive;
-            });
         }
 
         public void bindTo(Device currentDevice) {
             deviceName.setText(currentDevice.getName());
+            deviceManufacturer.setText("Manufacturer: " + currentDevice.getManufacturer());
             description.setText(currentDevice.getDescription());
-            deviceManufacturer.setText(currentDevice.getManufacturer());
             Glide.with(context).load(currentDevice.getImageResource()).into(deviceImage);
-            currentDevice.setActive(isActive);
-            if(currentDevice.isActive()){
-                Glide.with(context).load(R.drawable.green_circle).into(active);
-            }
-            else{
-                Glide.with(context).load(R.drawable.red_circle).into(active);
-            }
+            active.setText(currentDevice.isActive() ? "On" : "Off");
+
+            itemView.findViewById(R.id.delete).setOnClickListener(view -> {
+                Log.d("delete", this.deviceName.getText() + " delete button has been clicked!");
+                ((DeviceListActivity)context).deleteDevice(currentDevice);
+            });
+
+            itemView.findViewById(R.id.active).setOnClickListener(view -> {
+                Log.d("setActive", this.deviceName.getText() + "Activate button has been clicked!");
+                ((DeviceListActivity)context).updateActivity(currentDevice);
+                active.setText(currentDevice.isActive() ? "On" : "Off");
+            });
         }
     }
 }

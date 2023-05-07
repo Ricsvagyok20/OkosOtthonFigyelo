@@ -6,24 +6,24 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class DeviceListActivity extends AppCompatActivity{
 
@@ -38,12 +38,20 @@ public class DeviceListActivity extends AppCompatActivity{
     private FirebaseFirestore firestore;
     private CollectionReference items;
 
+    private NotificationHandler notificationHandler;
+
     private RecyclerView recyclerView;
     private ArrayList<Device> deviceList;
     private DeviceListAdapter adapter;
     private int gridNumber = 2;
 
     private boolean filteredByActive = false;
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        notificationHandler.send("The app is running in the background!");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +78,17 @@ public class DeviceListActivity extends AppCompatActivity{
         firestore = FirebaseFirestore.getInstance();
         items = firestore.collection("Devices");
 
+        notificationHandler = new NotificationHandler(this);
+
         queryData();
     }
 
     private void queryData() {
         deviceList.clear();
-        items.orderBy("name", Query.Direction.DESCENDING).limit(10).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        items.orderBy("name", Query.Direction.DESCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 Device device = document.toObject(Device.class);
+                device.setId(document.getId());
                 deviceList.add(device);
             }
 
@@ -86,7 +97,30 @@ public class DeviceListActivity extends AppCompatActivity{
                 queryData();
             }
             adapter.notifyDataSetChanged();
+        }).addOnFailureListener(fail -> {
+            Toast.makeText(this, fail.getMessage(), Toast.LENGTH_LONG).show();
         });
+    }
+
+    public void deleteDevice(Device device){
+        DocumentReference ref = items.document(device._getId());
+        ref.delete()
+                .addOnSuccessListener(success -> {
+                    Log.d(LOG_TAG, "Item is successfully deleted: " + device._getId());
+                })
+                .addOnFailureListener(fail -> {
+                    Toast.makeText(this, "Device " + device._getId() + " cannot be deleted.", Toast.LENGTH_LONG).show();
+                });
+        queryData();
+    }
+
+    public void updateActivity(Device device){
+        items.document(device._getId()).update("active", !device.isActive())
+                .addOnFailureListener(fail -> {
+                    Toast.makeText(this, "Device " + device._getId() + " update failed.", Toast.LENGTH_LONG).show();
+                });
+        notificationHandler.send(device.getName() + "has been turned " + (!device.isActive() ? "on" : "off"));
+        queryData();
     }
 
     private void initializeData() {
@@ -141,6 +175,10 @@ public class DeviceListActivity extends AppCompatActivity{
                 sortByActive();
                 filteredByActive = !filteredByActive;
                 return true;
+            case R.id.add:
+                Log.d(LOG_TAG, "Add device clicked!");
+                startAddDevice();
+                return true;
             case R.id.log_out_button:
                 Log.d(LOG_TAG, "Log out clicked!");
                 FirebaseAuth.getInstance().signOut();
@@ -154,12 +192,18 @@ public class DeviceListActivity extends AppCompatActivity{
         }
     }
 
+    private void startAddDevice() {
+        Intent intent = new Intent(this, AddDevice.class);
+        startActivity(intent);
+    }
+
     private void sortByActive(){
         deviceList.clear();
         if(!filteredByActive){
             items.whereEqualTo("active", true).get().addOnSuccessListener(queryDocumentSnapshots -> {
                 for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                     Device device = document.toObject(Device.class);
+                    device.setId(document.getId());
                     deviceList.add(device);
                 }
                 adapter.notifyDataSetChanged();

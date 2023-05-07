@@ -24,17 +24,24 @@
         />
 
     <item
+        android:id="@+id/add"
+        android:title="@string/add"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        />
+
+    <item
         android:id="@+id/settings_button"
         android:title="@string/settings"
         app:showAsAction="never"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         />
 
     <item
         android:id="@+id/log_out_button"
         android:title="@string/log_out"
         app:showAsAction="never"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         />
 
 </menu>

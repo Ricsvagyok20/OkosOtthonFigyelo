@@ -1,6 +1,8 @@
 package com.example.okosotthonfigyelo;
 
 public class Device {
+
+    private String id;
     private String name;
     private String manufacturer;
 
@@ -42,5 +44,12 @@ public class Device {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String _getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
 }

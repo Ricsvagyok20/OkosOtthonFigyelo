@@ -16,6 +16,9 @@
             android:name=".DeviceListActivity"
             android:exported="false" />
         <activity
+            android:name=".AddDevice"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
